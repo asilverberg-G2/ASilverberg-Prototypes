@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topics Table — Audience &amp; Targeting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: #f2f2f3;
+      display: flex;
+      justify-content: center;
+      padding: 40px 24px;
+      color: #201f23;
+    }
+
+    .card {
+      background: #fafafa;
+      border: 1px solid #dfdfe2;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 632px;
+      overflow: hidden;
+    }
+
+    .card-description {
+      padding: 16px 16px 0;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      color: #000;
+    }
+
+    .table-wrap {
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr th {
+      background: #fafafa;
+      border-bottom: 0.5px solid #b0afb6;
+      padding: 0 24px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #201f23;
+      white-space: nowrap;
+    }
+
+    thead tr th.col-topic { text-align: left; }
+    thead tr th.col-cpc  { text-align: right; }
+
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #b0afb6;
+      font-size: 10px;
+      font-weight: 600;
+      color: #b0afb6;
+      vertical-align: middle;
+      margin-left: 4px;
+      cursor: default;
+      line-height: 1;
+    }
+
+    tbody tr td {
+      background: #fff;
+      border-bottom: 0.5px solid #dfdfe2;
+      padding: 0 24px;
+      height: 48px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      color: #4c4b53;
+      white-space: nowrap;
+    }
+
+    tbody tr td.col-cpc {
+      text-align: right;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+
+    /* Expanded Categories separator row */
+    tbody tr.expanded-row td {
+      background: #f2f2f3;
+      height: 32px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 0;
+    }
+
+    .cell-topic {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid #b0afb6;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    input[type="checkbox"]:checked {
+      background: #491fa1;
+      border-color: #491fa1;
+    }
+
+    input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 6px;
+      height: 10px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .ext-icon {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 4px;
+      color: #491fa1;
+      flex-shrink: 0;
+    }
+
+    .ext-icon svg { display: block; }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0;
+    }
+
+    .page-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4c4b53;
+      transition: background 0.15s;
+    }
+
+    .page-btn:hover  { background: #ebe9f6; }
+
+    .page-btn.active {
+      background: #ebe9f6;
+      border: 0.5px solid #b0afb6;
+      font-weight: 600;
+    }
+
+    .page-arrow {
+      background: #f2f2f3;
+      border: 0.5px solid transparent;
+      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    .page-arrow:hover:not(:disabled) { background: #e0dff0; }
+
+    .page-arrow:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .page-arrow.next {
+      background: #fafafa;
+      border-color: #b0afb6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <p class="card-description">
+      Select the topics below to target buyers based on their software needs and interests.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-topic" id="topic-heading">Topics (0 of 20 selected)</th>
+            <th class="col-cpc">
+              Max CPC
+              <span class="info-icon" title="Maximum cost per click">i</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <script>
+    // ─── Data ────────────────────────────────────────────────────────────────
+    // 20 plain data rows. The separator is not a row — it renders automatically
+    // before SEPARATOR_BEFORE_INDEX, and as a sticky header on all later pages.
+    const rows = [
+      { label: 'Cloud Hosting',                                       cpc: '$10.00', checked: true  },
+      { label: 'Dedicated Hosting',                                   cpc: '$20.00', checked: true  },
+      { label: 'Domain Registration',                                 cpc: '$5.00',  checked: false },
+      { label: 'Admissions and Enrollment With an Even Longer Title', cpc: '$12.00', checked: true  },
+      { label: 'Cybersecurity Essentials',                            cpc: '$8.00',  checked: false },
+      { label: 'Database Management',                                 cpc: '$15.00', checked: true  },
+      { label: 'E-commerce Solutions',                                cpc: '$9.00',  checked: false },
+      { label: 'Enterprise Resource Planning',                        cpc: '$18.00', checked: true  },
+      { label: 'IT Asset Management',                                 cpc: '$11.00', checked: false },
+      { label: 'Human Resources Software',                            cpc: '$7.00',  checked: true  },
+      { label: 'Learning Management Systems',                         cpc: '$6.00',  checked: false },
+      { label: 'Marketing Automation',                                cpc: '$22.00', checked: true  },
+      { label: 'Network Monitoring',                                  cpc: '$13.00', checked: false },
+      { label: 'Business Intelligence & Analytics',                   cpc: '$19.00', checked: false },
+      { label: 'Project Management',                                  cpc: '$16.00', checked: true  },
+      { label: 'Sales Intelligence',                                  cpc: '$14.00', checked: false },
+      { label: 'Social Media Management',                             cpc: '$9.00',  checked: true  },
+      { label: 'Video Conferencing',                                  cpc: '$8.00',  checked: false },
+      { label: 'Workflow Automation',                                 cpc: '$17.00', checked: true  },
+      { label: 'Content Management Systems',                          cpc: '$11.00', checked: false },
+    ];
+
+    // The separator appears before this row index (0-based).
+    // Page 1: rows 0–3, then separator, then row 4.
+    // Pages 2–4: separator header at top, then 5 rows each.
+    const SEPARATOR_BEFORE_INDEX = 4;
+    const SEPARATOR_LABEL = 'Expanded Categories';
+
+    const PER_PAGE = 5;
+    const TOTAL_PAGES = Math.ceil(rows.length / PER_PAGE);
+    let currentPage = 1;
+
+    // ─── SVGs ────────────────────────────────────────────────────────────────
+    const extIconSVG = `
+      <span class="ext-icon">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2h4V1H1v12h12V8h-1v4H2V2Z" fill="currentColor"/>
+          <path d="M8 1v1h3.293L5.646 7.646l.708.708L12 2.707V6h1V1H8Z" fill="currentColor"/>
+        </svg>
+      </span>`;
+
+    const chevronLeft = `
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 12L6 8l4-4" stroke="#4c4b53" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`;
+
+    const chevronRight = `
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 4l4 4-4 4" stroke="#4c4b53" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`;
+
+    // ─── Render helpers ───────────────────────────────────────────────────────
+    function countSelected() {
+      return rows.filter(r => r.checked).length;
+    }
+
+    function updateHeading() {
+      document.getElementById('topic-heading').textContent =
+        `Topics (${countSelected()} of 20 selected)`;
+    }
+
+    function separatorRow() {
+      return `
+        <tr class="expanded-row">
+          <td colspan="2" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+            ${SEPARATOR_LABEL}
+          </td>
+        </tr>`;
+    }
+
+    function dataRow(row, globalIndex) {
+      return `
+        <tr>
+          <td>
+            <div class="cell-topic">
+              <input
+                type="checkbox"
+                ${row.checked ? 'checked' : ''}
+                data-index="${globalIndex}"
+                onchange="toggleRow(${globalIndex})"
+              />
+              <span>${row.label}</span>
+              ${extIconSVG}
+            </div>
+          </td>
+          <td class="col-cpc">${row.cpc}</td>
+        </tr>`;
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('table-body');
+      const start = (currentPage - 1) * PER_PAGE;
+      const pageRows = rows.slice(start, start + PER_PAGE);
+      let html = '';
+
+      if (currentPage === 1) {
+        // Rows before the separator, then separator, then remaining rows on this page
+        pageRows.forEach((row, localIndex) => {
+          const globalIndex = start + localIndex;
+          if (globalIndex === SEPARATOR_BEFORE_INDEX) html += separatorRow();
+          html += dataRow(row, globalIndex);
+        });
+      } else {
+        // All subsequent pages: separator header at the top, then 5 rows
+        html += separatorRow();
+        pageRows.forEach((row, localIndex) => {
+          html += dataRow(row, start + localIndex);
+        });
+      }
+
+      tbody.innerHTML = html;
+      updateHeading();
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const container = document.getElementById('pagination');
+
+      let html = `
+        <button class="page-arrow prev" aria-label="Previous page"
+          onclick="goToPage(${currentPage - 1})"
+          ${currentPage === 1 ? 'disabled' : ''}>
+          ${chevronLeft}
+        </button>`;
+
+      for (let p = 1; p <= TOTAL_PAGES; p++) {
+        html += `
+          <button class="page-btn ${p === currentPage ? 'active' : ''}"
+            aria-current="${p === currentPage ? 'page' : 'false'}"
+            onclick="goToPage(${p})">
+            ${p}
+          </button>`;
+      }
+
+      html += `
+        <button class="page-arrow next" aria-label="Next page"
+          onclick="goToPage(${currentPage + 1})"
+          ${currentPage === TOTAL_PAGES ? 'disabled' : ''}>
+          ${chevronRight}
+        </button>`;
+
+      container.innerHTML = html;
+    }
+
+    // ─── Interactions ─────────────────────────────────────────────────────────
+    function toggleRow(index) {
+      rows[index].checked = !rows[index].checked;
+      updateHeading();
+    }
+
+    function goToPage(page) {
+      if (page < 1 || page > TOTAL_PAGES) return;
+      currentPage = page;
+      renderTable();
+    }
+
+    // ─── Init ─────────────────────────────────────────────────────────────────
+    renderTable();
+  </script>
+
+</body>
+</html>

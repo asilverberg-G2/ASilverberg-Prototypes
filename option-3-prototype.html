@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Option 3 — Blue Accent Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: #f2f2f3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+      gap: 16px;
+      color: #201f23;
+    }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      width: 100%;
+      max-width: 632px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toolbar h1 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4c4b53;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fafafa;
+      border: 1px solid #dfdfe2;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 632px;
+      overflow: hidden;
+    }
+
+    .card-description {
+      padding: 16px 16px 0;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      color: #000;
+    }
+
+    .table-wrap {
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      margin-top: 16px;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      background: #fafafa;
+      border-bottom: 0.5px solid #b0afb6;
+      padding: 0 24px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #201f23;
+      white-space: nowrap;
+    }
+
+    thead th.col-topic { text-align: left; }
+    thead th.col-cpc   { text-align: right; }
+
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #b0afb6;
+      font-size: 10px;
+      font-weight: 600;
+      color: #b0afb6;
+      vertical-align: middle;
+      margin-left: 4px;
+      line-height: 1;
+    }
+
+    tbody td {
+      background: #fff;
+      border-bottom: 0.5px solid #dfdfe2;
+      padding: 0 24px;
+      height: 48px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #4c4b53;
+      white-space: nowrap;
+    }
+
+    tbody td.col-cpc {
+      text-align: right;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .cell-topic {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid #b0afb6;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    input[type="checkbox"]:checked {
+      background: #491fa1;
+      border-color: #491fa1;
+    }
+
+    input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 6px;
+      height: 10px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .ext-icon {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 4px;
+      color: #491fa1;
+      flex-shrink: 0;
+    }
+
+    /* ── Separator row ── */
+    .sep-row td {
+      height: 36px;
+      padding: 8px 24px;
+      border-bottom: 0.5px solid #dfdfe2;
+      border-left: 4px solid #005cc4;
+      padding-left: 16px; /* 24px - 4px border = 20px visual gap, matches design */
+    }
+
+    .sep-inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sep-inner span {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #6f6d78;
+      white-space: nowrap;
+    }
+
+    .sep-inner::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #dfdfe2;
+    }
+
+    /* ── Expanded data rows: light blue accent bar ── */
+    tr.expanded-data td:first-child {
+      border-left: 4px solid #9eccff;
+      padding-left: 20px; /* 24px - 4px border */
+    }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0;
+    }
+
+    .page-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4c4b53;
+      transition: background 0.15s;
+    }
+
+    .page-btn:hover  { background: #ebe9f6; }
+    .page-btn.active {
+      background: #ebe9f6;
+      border: 0.5px solid #b0afb6;
+      font-weight: 600;
+    }
+
+    .page-arrow {
+      background: #f2f2f3;
+      border: 0.5px solid transparent;
+      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    .page-arrow:hover:not(:disabled) { background: #e0dff0; }
+    .page-arrow:disabled { opacity: 0.35; cursor: default; }
+    .page-arrow.next { background: #fafafa; border-color: #b0afb6; }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <h1>Option 3 — Blue Accent Bar</h1>
+  </div>
+
+  <div class="card">
+    <p class="card-description">
+      Select the topics below to target buyers based on their software needs and interests.
+    </p>
+    <div class="table-wrap">
+      <table id="main-table">
+        <thead>
+          <tr>
+            <th class="col-topic" id="topic-heading">Topics (0 of 20 selected)</th>
+            <th class="col-cpc">Max CPC <span class="info-icon">i</span></th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <script>
+    const rows = [
+      { label: 'Cloud Hosting',                                       cpc: '$10.00', checked: true  },
+      { label: 'Dedicated Hosting',                                   cpc: '$20.00', checked: true  },
+      { label: 'Domain Registration',                                 cpc: '$5.00',  checked: false },
+      { label: 'Admissions and Enrollment With an Even Longer Title', cpc: '$12.00', checked: true  },
+      // Expanded Categories start at index 4
+      { label: 'Cybersecurity Essentials',                            cpc: '$8.00',  checked: false },
+      { label: 'Database Management',                                 cpc: '$15.00', checked: true  },
+      { label: 'E-commerce Solutions',                                cpc: '$9.00',  checked: false },
+      { label: 'Enterprise Resource Planning',                        cpc: '$18.00', checked: true  },
+      { label: 'IT Asset Management',                                 cpc: '$11.00', checked: false },
+      { label: 'Human Resources Software',                            cpc: '$7.00',  checked: true  },
+      { label: 'Learning Management Systems',                         cpc: '$6.00',  checked: false },
+      { label: 'Marketing Automation',                                cpc: '$22.00', checked: true  },
+      { label: 'Network Monitoring',                                  cpc: '$13.00', checked: false },
+      { label: 'Business Intelligence & Analytics',                   cpc: '$19.00', checked: false },
+      { label: 'Project Management',                                  cpc: '$16.00', checked: true  },
+      { label: 'Sales Intelligence',                                  cpc: '$14.00', checked: false },
+      { label: 'Social Media Management',                             cpc: '$9.00',  checked: true  },
+      { label: 'Video Conferencing',                                  cpc: '$8.00',  checked: false },
+      { label: 'Workflow Automation',                                 cpc: '$17.00', checked: true  },
+      { label: 'Content Management Systems',                          cpc: '$11.00', checked: false },
+    ];
+
+    const SEPARATOR_BEFORE_INDEX = 4;
+    const PER_PAGE = 5;
+    const TOTAL_PAGES = Math.ceil(rows.length / PER_PAGE);
+    let currentPage = 1;
+
+    const extIconSVG = `<span class="ext-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2h4V1H1v12h12V8h-1v4H2V2Z" fill="currentColor"/><path d="M8 1v1h3.293L5.646 7.646l.708.708L12 2.707V6h1V1H8Z" fill="currentColor"/></svg></span>`;
+
+    function countSelected() {
+      return rows.filter(r => r.checked).length;
+    }
+
+    function updateHeading() {
+      document.getElementById('topic-heading').textContent =
+        `Topics (${countSelected()} of 20 selected)`;
+    }
+
+    function separatorRow() {
+      return `<tr class="sep-row">
+        <td colspan="2">
+          <div class="sep-inner"><span>Expanded Categories</span></div>
+        </td>
+      </tr>`;
+    }
+
+    function dataRow(row, globalIndex, isExpanded) {
+      return `<tr class="${isExpanded ? 'expanded-data' : ''}">
+        <td>
+          <div class="cell-topic">
+            <input type="checkbox" ${row.checked ? 'checked' : ''} onchange="toggleRow(${globalIndex})" />
+            <span>${row.label}</span>
+            ${extIconSVG}
+          </div>
+        </td>
+        <td class="col-cpc">${row.cpc}</td>
+      </tr>`;
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('table-body');
+      const start = (currentPage - 1) * PER_PAGE;
+      const pageRows = rows.slice(start, start + PER_PAGE);
+      let html = '';
+
+      if (currentPage === 1) {
+        pageRows.forEach((row, i) => {
+          const gi = start + i;
+          if (gi === SEPARATOR_BEFORE_INDEX) html += separatorRow();
+          html += dataRow(row, gi, gi >= SEPARATOR_BEFORE_INDEX);
+        });
+      } else {
+        html += separatorRow();
+        pageRows.forEach((row, i) => html += dataRow(row, start + i, true));
+      }
+
+      tbody.innerHTML = html;
+      updateHeading();
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const c = document.getElementById('pagination');
+      let html = `<button class="page-arrow" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})" aria-label="Previous">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="#4c4b53" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>`;
+
+      for (let p = 1; p <= TOTAL_PAGES; p++) {
+        html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+      }
+
+      html += `<button class="page-arrow next" ${currentPage === TOTAL_PAGES ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})" aria-label="Next">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#4c4b53" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>`;
+
+      c.innerHTML = html;
+    }
+
+    function toggleRow(index) {
+      rows[index].checked = !rows[index].checked;
+      updateHeading();
+    }
+
+    function goToPage(page) {
+      if (page < 1 || page > TOTAL_PAGES) return;
+      currentPage = page;
+      renderTable();
+    }
+
+    renderTable();
+  </script>
+
+</body>
+</html>
