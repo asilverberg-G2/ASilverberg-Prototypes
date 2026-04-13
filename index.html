@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extended Categories Prototypes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: #f2f2f3;
+      color: #201f23;
+      padding: 48px 24px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #201f23;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #6f6d78;
+      font-weight: 400;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dfdfe2;
+      border-radius: 8px;
+      padding: 24px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #201f23;
+    }
+
+    .card-number {
+      font-size: 14px;
+      font-weight: 600;
+      color: #9998a3;
+      background: #f5f3fc;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      line-height: 20px;
+      color: #6f6d78;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #491fa1;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid #f2f2f3;
+    }
+
+    .card-footer svg {
+      flex-shrink: 0;
+    }
+
+    .resources {
+      background: #fafafa;
+      border: 1px solid #dfdfe2;
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .resources h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #201f23;
+    }
+
+    .resources-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #fff;
+      border: 1px solid #dfdfe2;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #201f23;
+      font-size: 14px;
+      font-weight: 500;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .resource-link:hover {
+      background: #f5f3fc;
+      border-color: #491fa1;
+    }
+
+    footer {
+      margin-top: 64px;
+      text-align: center;
+      font-size: 13px;
+      color: #9998a3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ASilverberg Prototypes</h1>
+      <p class="subtitle">A collection of interactive design prototypes</p>
+    </header>
+
+    <div class="grid">
+      <a href="option-5-prototype.html" class="card">
+        <div class="card-header">
+          <h3 class="card-title">Extended Categories — Flat List</h3>
+          <span class="card-number">Latest</span>
+        </div>
+        <p class="card-description">
+          Category selection interface with flat list structure and visual divider separating standard and extended categories. Includes search and pagination.
+        </p>
+        <div class="card-footer">
+          View Prototype
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Add new prototype cards below this comment -->
+
+    </div>
+
+    <footer>
+      Last updated: April 2026
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Option 5 — Flat Categories with Divider</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: #f2f2f3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+      gap: 16px;
+      color: #201f23;
+    }
+
+    .toolbar {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .toolbar h1 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #4c4b53;
+    }
+
+    /* ── Outer card ── */
+    .card {
+      background: #fafafa;
+      border: 1px solid #dfdfe2;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 680px;
+      padding: 16px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-description {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      color: #000;
+    }
+
+    /* ── Inner white box ── */
+    .table-box {
+      background: white;
+      border: 0.5px solid #b0afb6;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    /* ── Topics title + search ── */
+    .table-box-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 24px;
+    }
+
+    .table-box-title {
+      flex: 1;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 28px;
+      color: #201f23;
+    }
+
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #fafafa;
+      border: 0.5px solid #b0afb6;
+      border-radius: 16px;
+      height: 32px;
+      padding: 0 8px 0 12px;
+      width: 212px;
+      flex-shrink: 0;
+      transition: border-color 0.15s;
+    }
+
+    .search-wrap:focus-within { border-color: #491fa1; }
+
+    .search-wrap svg { flex-shrink: 0; }
+
+    .search-wrap input {
+      border: none;
+      background: transparent;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      color: #201f23;
+      flex: 1;
+      min-width: 0;
+      outline: none;
+    }
+
+    .search-wrap input::placeholder { color: #6f6d78; }
+
+    /* ── Table ── */
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      background: #fafafa;
+      border-top: 0.5px solid #b0afb6;
+      border-bottom: 0.5px solid #b0afb6;
+      padding: 0 24px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #201f23;
+      white-space: nowrap;
+    }
+
+    thead th.col-topic { text-align: left; }
+    thead th.col-cpc   { text-align: right; }
+
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #b0afb6;
+      font-size: 10px;
+      font-weight: 600;
+      color: #b0afb6;
+      vertical-align: middle;
+      margin-left: 4px;
+      line-height: 1;
+    }
+
+    tbody td {
+      background: #fff;
+      border-bottom: 0.5px solid #dfdfe2;
+      padding: 0 24px;
+      height: 48px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #4c4b53;
+      white-space: nowrap;
+    }
+
+    tbody td.col-cpc {
+      text-align: right;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .cell-topic {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Checkboxes ── */
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid #b0afb6;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    input[type="checkbox"]:checked {
+      background: #491fa1;
+      border-color: #491fa1;
+    }
+
+    input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 6px;
+      height: 10px;
+      border: 2px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .ext-icon {
+      display: inline-flex;
+      align-items: center;
+      margin-left: 4px;
+      color: #491fa1;
+      flex-shrink: 0;
+    }
+
+    /* ── Extended Categories Divider (from separator-options Option 1) ── */
+    .sep-divider td {
+      background: #fff;
+      height: 32px;
+      padding: 0 24px;
+      border-bottom: 0.5px solid #dfdfe2;
+    }
+
+    .sep-divider-inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sep-divider-inner span {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9998a3;
+      white-space: nowrap;
+    }
+
+    .sep-divider-inner::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #dfdfe2;
+    }
+
+    /* ── Pagination ── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 0 24px;
+    }
+
+    .page-btn {
+      border: none;
+      background: transparent;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4c4b53;
+      cursor: pointer;
+      min-width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+
+    .page-btn.active {
+      background: #491fa1;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .page-btn:hover:not(.active) { background: #f5f3fc; }
+
+    .page-arrow {
+      border: 1px solid #491fa1;
+      background: #fff;
+      border-radius: 4px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    .page-arrow:hover:not(:disabled) { background: #e0dff0; }
+    .page-arrow:disabled { opacity: 0.35; cursor: default; }
+    .page-arrow.next { background: #fafafa; border-color: #b0afb6; }
+
+    .empty-row td {
+      text-align: center;
+      font-size: 14px;
+      color: #6f6d78;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <h1>Option 5 — Flat Categories with Divider</h1>
+  </div>
+
+  <div class="card">
+    <p class="card-description">
+      Select the topics below to target buyers based on their software needs and interests.
+    </p>
+
+    <div class="table-box">
+      <div class="table-box-header">
+        <span class="table-box-title">Topics</span>
+        <div class="search-wrap">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="8.5" cy="8.5" r="5.25" stroke="#6f6d78" stroke-width="1.5"/>
+            <path d="M12.5 12.5L15.5 15.5" stroke="#6f6d78" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Search" oninput="handleSearch()" />
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th class="col-topic" id="topic-heading">Topics (0 of 200 selected)</th>
+            <th class="col-cpc">Max CPC <span class="info-icon">i</span></th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <script>
+    // ─── Data (flattened — all topics in one array) ────────────────────────────
+    const allTopics = [
+      // ── Standard Categories ──────────────────────────────────────────────────
+      { label: 'Cloud Hosting',              cpc: '$10.00', checked: true,  isExtended: false },
+      { label: 'Virtual Private Server',     cpc: '$18.00', checked: true,  isExtended: false },
+      { label: 'Managed Hosting',            cpc: '$22.00', checked: false, isExtended: false },
+      { label: 'Colocation Services',        cpc: '$15.00', checked: true,  isExtended: false },
+      { label: 'Bare Metal Server',          cpc: '$25.00', checked: true,  isExtended: false },
+      { label: 'Cloud Storage',              cpc: '$12.00', checked: false, isExtended: false },
+      { label: 'Content Delivery Network',   cpc: '$9.00',  checked: false, isExtended: false },
+      { label: 'Virtual Machines',           cpc: '$20.00', checked: false, isExtended: false },
+      { label: 'Container Orchestration',    cpc: '$24.00', checked: false, isExtended: false },
+      { label: 'Serverless Computing',       cpc: '$17.00', checked: false, isExtended: false },
+      { label: 'Platform as a Service',      cpc: '$14.00', checked: false, isExtended: false },
+      { label: 'Cloud Backup',               cpc: '$11.00', checked: true,  isExtended: false },
+      { label: 'Disaster Recovery',          cpc: '$19.00', checked: false, isExtended: false },
+      { label: 'Domain Registration',        cpc: '$7.00',  checked: false, isExtended: false },
+      { label: 'Load Balancing',             cpc: '$13.00', checked: false, isExtended: false },
+      { label: 'Edge Computing',             cpc: '$16.00', checked: false, isExtended: false },
+      { label: 'Cybersecurity',              cpc: '$19.00', checked: false, isExtended: false },
+      { label: 'Single Sign-On',             cpc: '$15.00', checked: true,  isExtended: false },
+      { label: 'Multi-Factor Auth',          cpc: '$13.00', checked: true,  isExtended: false },
+      { label: 'Privileged Access',          cpc: '$21.00', checked: false, isExtended: false },
+      { label: 'Endpoint Security',          cpc: '$17.00', checked: false, isExtended: false },
+      { label: 'Firewall Software',          cpc: '$14.00', checked: false, isExtended: false },
+      { label: 'Vulnerability Management',   cpc: '$22.00', checked: false, isExtended: false },
+      { label: 'SIEM',                       cpc: '$25.00', checked: false, isExtended: false },
+      { label: 'Email DLP',                  cpc: '$12.00', checked: false, isExtended: false },
+      { label: 'Endpoint DLP',               cpc: '$14.00', checked: false, isExtended: false },
+      { label: 'Cloud DLP',                  cpc: '$16.00', checked: false, isExtended: false },
+      { label: 'Penetration Testing',        cpc: '$20.00', checked: false, isExtended: false },
+      { label: 'Password Management',        cpc: '$8.00',  checked: false, isExtended: false },
+      { label: 'Data Visualization',         cpc: '$18.00', checked: false, isExtended: false },
+      { label: 'Predictive Analytics',       cpc: '$22.00', checked: false, isExtended: false },
+      { label: 'Reporting Tools',            cpc: '$13.00', checked: false, isExtended: false },
+      { label: 'Self-Service BI',            cpc: '$16.00', checked: false, isExtended: false },
+      { label: 'Web Analytics',              cpc: '$11.00', checked: true,  isExtended: false },
+      { label: 'Product Analytics',          cpc: '$15.00', checked: false, isExtended: false },
+      { label: 'ETL Tools',                  cpc: '$17.00', checked: false, isExtended: false },
+      { label: 'Data Pipeline',              cpc: '$19.00', checked: false, isExtended: false },
+      { label: 'API Integration',            cpc: '$14.00', checked: true,  isExtended: false },
+      { label: 'Data Governance',            cpc: '$20.00', checked: false, isExtended: false },
+      { label: 'Database Management',        cpc: '$15.00', checked: false, isExtended: false },
+      { label: 'Data Warehousing',           cpc: '$23.00', checked: false, isExtended: false },
+      { label: 'Email Marketing',            cpc: '$9.00',  checked: true,  isExtended: false },
+      { label: 'Social Media Tools',         cpc: '$12.00', checked: true,  isExtended: false },
+      { label: 'Lead Scoring',               cpc: '$14.00', checked: false, isExtended: false },
+      { label: 'Campaign Management',        cpc: '$11.00', checked: false, isExtended: false },
+      { label: 'SEO Software',               cpc: '$10.00', checked: false, isExtended: false },
+      { label: 'Content Marketing',          cpc: '$9.00',  checked: false, isExtended: false },
+      { label: 'Social Media Management',    cpc: '$8.00',  checked: false, isExtended: false },
+      { label: 'Affiliate Marketing',        cpc: '$13.00', checked: false, isExtended: false },
+      { label: 'ABM Platforms',              cpc: '$22.00', checked: false, isExtended: false },
+      { label: 'Intent Data',                cpc: '$25.00', checked: false, isExtended: false },
+
+      // ── Extended Categories ──────────────────────────────────────────────────
+      { label: 'Customer Relationship Mgmt', cpc: '$16.00', checked: false, isExtended: true },
+      { label: 'Sales Enablement',           cpc: '$18.00', checked: false, isExtended: true },
+      { label: 'Help Desk Software',         cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Live Chat',                  cpc: '$9.00',  checked: false, isExtended: true },
+      { label: 'Knowledge Base',             cpc: '$10.00', checked: false, isExtended: true },
+      { label: 'Ticketing System',           cpc: '$12.00', checked: false, isExtended: true },
+      { label: 'Customer Success',           cpc: '$15.00', checked: false, isExtended: true },
+      { label: 'Project Management',         cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'Task Management',            cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Team Collaboration',         cpc: '$13.00', checked: false, isExtended: true },
+      { label: 'Time Tracking',              cpc: '$10.00', checked: false, isExtended: true },
+      { label: 'Resource Planning',          cpc: '$16.00', checked: false, isExtended: true },
+      { label: 'Gantt Charts',               cpc: '$12.00', checked: false, isExtended: true },
+      { label: 'Kanban Boards',              cpc: '$9.00',  checked: false, isExtended: true },
+      { label: 'Workflow Automation',        cpc: '$15.00', checked: false, isExtended: true },
+      { label: 'Process Management',         cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'Document Management',        cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Version Control',            cpc: '$13.00', checked: false, isExtended: true },
+      { label: 'E-Signature',                cpc: '$10.00', checked: false, isExtended: true },
+      { label: 'Contract Management',        cpc: '$17.00', checked: false, isExtended: true },
+      { label: 'Accounting Software',        cpc: '$18.00', checked: false, isExtended: true },
+      { label: 'Invoicing',                  cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Expense Management',         cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'Payroll Software',           cpc: '$16.00', checked: false, isExtended: true },
+      { label: 'HR Management',              cpc: '$15.00', checked: false, isExtended: true },
+      { label: 'Applicant Tracking',         cpc: '$13.00', checked: false, isExtended: true },
+      { label: 'Onboarding Software',        cpc: '$12.00', checked: false, isExtended: true },
+      { label: 'Performance Management',     cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'Employee Engagement',        cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Learning Management',        cpc: '$16.00', checked: false, isExtended: true },
+      { label: 'Video Conferencing',         cpc: '$10.00', checked: false, isExtended: true },
+      { label: 'Screen Sharing',             cpc: '$8.00',  checked: false, isExtended: true },
+      { label: 'Webinar Software',           cpc: '$15.00', checked: false, isExtended: true },
+      { label: 'Virtual Events',             cpc: '$17.00', checked: false, isExtended: true },
+      { label: 'Email Client',               cpc: '$7.00',  checked: false, isExtended: true },
+      { label: 'Calendar Software',          cpc: '$9.00',  checked: false, isExtended: true },
+      { label: 'Scheduling Tools',           cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Survey Software',            cpc: '$13.00', checked: false, isExtended: true },
+      { label: 'Form Builder',               cpc: '$10.00', checked: false, isExtended: true },
+      { label: 'Feedback Management',        cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'Inventory Management',       cpc: '$15.00', checked: false, isExtended: true },
+      { label: 'Order Management',           cpc: '$16.00', checked: false, isExtended: true },
+      { label: 'Warehouse Management',       cpc: '$18.00', checked: false, isExtended: true },
+      { label: 'Shipping Software',          cpc: '$12.00', checked: false, isExtended: true },
+      { label: 'E-commerce Platform',        cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'Point of Sale',              cpc: '$13.00', checked: false, isExtended: true },
+      { label: 'Payment Processing',         cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Subscription Management',    cpc: '$15.00', checked: false, isExtended: true },
+      { label: 'Billing Software',           cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'GPS Fleet Tracking',         cpc: '$14.00', checked: false, isExtended: true },
+      { label: 'Maintenance Scheduling',     cpc: '$11.00', checked: false, isExtended: true },
+      { label: 'Field Service Management',   cpc: '$13.00', checked: false, isExtended: true },
+      { label: 'Nonprofit Software',         cpc: '$7.00',  checked: false, isExtended: true },
+      { label: 'Construction Management',    cpc: '$15.00', checked: false, isExtended: true },
+    ];
+
+    const TOTAL_TOPICS = allTopics.length;
+    const PER_PAGE = 10;
+    let currentPage = 1;
+    let searchQuery = '';
+
+    // ─── SVGs ─────────────────────────────────────────────────────────────────
+    const extIconSVG = `<span class="ext-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2h4V1H1v12h12V8h-1v4H2V2Z" fill="currentColor"/><path d="M8 1v1h3.293L5.646 7.646l.708.708L12 2.707V6h1V1H8Z" fill="currentColor"/></svg></span>`;
+
+    const chevronLeft  = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="#4c4b53" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    const chevronRight = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="#4c4b53" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+    // ─── Helpers ──────────────────────────────────────────────────────────────
+    function countSelected() {
+      return allTopics.filter(t => t.checked).length;
+    }
+
+    function getFiltered() {
+      if (!searchQuery) return allTopics;
+      const q = searchQuery.toLowerCase();
+      return allTopics.filter(t => t.label.toLowerCase().includes(q));
+    }
+
+    // ─── Render ───────────────────────────────────────────────────────────────
+    function renderTable() {
+      const filtered = getFiltered();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+      if (currentPage > totalPages) currentPage = 1;
+
+      const pageTopics = filtered.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE);
+      let html = '';
+      let dividerInserted = false;
+
+      pageTopics.forEach((topic, idx) => {
+        // Insert divider before first extended category
+        if (!dividerInserted && topic.isExtended) {
+          html += `<tr class="sep-divider">
+            <td colspan="2">
+              <div class="sep-divider-inner">
+                <span>Extended Categories</span>
+              </div>
+            </td>
+          </tr>`;
+          dividerInserted = true;
+        }
+
+        const topicIndex = allTopics.indexOf(topic);
+        html += `<tr>
+          <td class="col-topic">
+            <div class="cell-topic">
+              <input type="checkbox" ${topic.checked ? 'checked' : ''}
+                onchange="toggleTopic(${topicIndex})" />
+              <span>${topic.label}</span>
+              ${extIconSVG}
+            </div>
+          </td>
+          <td class="col-cpc">${topic.cpc}</td>
+        </tr>`;
+      });
+
+      if (!html) {
+        html = `<tr class="empty-row"><td colspan="2" style="padding:24px;text-align:center;font-size:14px;color:#6f6d78;font-weight:400;">No topics match your search.</td></tr>`;
+      }
+
+      document.getElementById('table-body').innerHTML = html;
+      document.getElementById('topic-heading').textContent =
+        `Topics (${countSelected()} of ${TOTAL_TOPICS} selected)`;
+      renderPagination(filtered.length);
+    }
+
+    function renderPagination(total) {
+      const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
+      const el = document.getElementById('pagination');
+
+      if (totalPages <= 1) { el.innerHTML = ''; return; }
+
+      // Build page list with ellipsis
+      let pages = [];
+      if (totalPages <= 7) {
+        for (let i = 1; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        if (currentPage > 3) pages.push('…');
+        for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) pages.push(i);
+        if (currentPage < totalPages - 2) pages.push('…');
+        pages.push(totalPages);
+      }
+
+      let html = `<button class="page-arrow" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">${chevronLeft}</button>`;
+      pages.forEach(p => {
+        html += p === '…'
+          ? `<button class="page-btn" style="cursor:default">…</button>`
+          : `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+      });
+      html += `<button class="page-arrow next" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})">${chevronRight}</button>`;
+
+      el.innerHTML = html;
+    }
+
+    // ─── Interactions ─────────────────────────────────────────────────────────
+    function toggleTopic(index) {
+      allTopics[index].checked = !allTopics[index].checked;
+      renderTable();
+    }
+
+    function goToPage(page) {
+      const total = Math.max(1, Math.ceil(getFiltered().length / PER_PAGE));
+      if (page < 1 || page > total) return;
+      currentPage = page;
+      renderTable();
+    }
+
+    function handleSearch() {
+      searchQuery = document.getElementById('search-input').value.trim();
+      currentPage = 1;
+      renderTable();
+    }
+
+    // ─── Init ─────────────────────────────────────────────────────────────────
+    renderTable();
+  </script>
+
+</body>
+</html>
