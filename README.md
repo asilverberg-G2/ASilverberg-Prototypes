@@ -4,10 +4,10 @@ A collection of interactive design prototypes.
 
 ## 📋 Prototypes
 
-### Extended Categories — Flat List
+### Extended Categories Prototype
 Category selection interface with flat list structure and visual divider separating standard and extended categories. Includes search and pagination.
 
-**[View Live Prototype →](https://asilverberg-g2.github.io/ASilverberg-Prototypes/option-5-prototype.html)**
+**[View Live Prototype →](https://asilverberg-g2.github.io/ASilverberg-Prototypes/extended-categories-prototype.html)**
 
 ---
 
