@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Expanded Categories Prototype</title>
+  <title>Expanded Topics Prototype</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -211,7 +211,7 @@
       flex-shrink: 0;
     }
 
-    /* ── Expanded Categories Divider (from separator-options Option 1) ── */
+    /* ── Expanded Topics Divider (from separator-options Option 1) ── */
     .sep-divider td {
       background: #fff;
       height: 32px;
@@ -300,7 +300,7 @@
 <body>
 
   <div class="toolbar">
-    <h1>Expanded Categories Prototype</h1>
+    <h1>Expanded Topics Prototype</h1>
   </div>
 
   <div class="card">
@@ -337,7 +337,7 @@
   <script>
     // ─── Data (flattened — all topics in one array) ────────────────────────────
     const allTopics = [
-      // ── Standard Categories ──────────────────────────────────────────────────
+      // ── Standard Topics ──────────────────────────────────────────────────
       { label: 'Cloud Hosting',              cpc: '$10.00', checked: true,  isExtended: false },
       { label: 'Virtual Private Server',     cpc: '$18.00', checked: true,  isExtended: false },
       { label: 'Managed Hosting',            cpc: '$22.00', checked: false, isExtended: false },
@@ -390,7 +390,7 @@
       { label: 'ABM Platforms',              cpc: '$22.00', checked: false, isExtended: false },
       { label: 'Intent Data',                cpc: '$25.00', checked: false, isExtended: false },
 
-      // ── Expanded Categories ──────────────────────────────────────────────────
+      // ── Expanded Topics ──────────────────────────────────────────────────
       { label: 'Customer Relationship Mgmt', cpc: '$16.00', checked: false, isExtended: true },
       { label: 'Sales Enablement',           cpc: '$18.00', checked: false, isExtended: true },
       { label: 'Help Desk Software',         cpc: '$11.00', checked: false, isExtended: true },
@@ -485,7 +485,7 @@
           html += `<tr class="sep-divider">
             <td colspan="2">
               <div class="sep-divider-inner">
-                <span>Expanded Categories</span>
+                <span>Expanded Topics</span>
               </div>
             </td>
           </tr>`;
